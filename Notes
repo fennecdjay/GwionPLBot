@@ -1,0 +1,9 @@
+mkdir bin
+mkdir lib
+
+git clone https://github.com/ctfhubio/GNU-time
+cd GNU-time
+./configure
+make
+cp time ../bin
+cd ..

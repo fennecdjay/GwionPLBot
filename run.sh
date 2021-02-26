@@ -1,6 +1,15 @@
+PATH=$PWD/bin:$PATH
+PATH=$PWD/Gwion:$PATH
+
+LIB=$PWD/lib
+
+TIME="timeout -e err -o out -t15s"
+GWION="gwion -p$LIB"
+
 if [ "$2" = "silent" ]
-then echo "$1" | timeout 15s ./Gwion/gwion -plib -
+then time gwion *.gw
 else
-  echo "$1" | timeout 15s ./Gwion/gwion -plib -dSndfile=$2 -
-  ffmpeg -i "$2.wav" "$2.mp3" &>/dev/null
+  time gwion -dSndfile *.gw
+  [ $(du run.sh | cut -f1) == 4 ] ||
+    ffmpeg -i "gwion.wav" "gwion.mp3" &>/dev/null
 fi
